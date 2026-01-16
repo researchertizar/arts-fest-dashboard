@@ -4,7 +4,7 @@ const dbPath = path.join(__dirname, "artsfest.db");
 
 const db = new sqlite3.Database(
   "src/database/artsfest.db",
-  sqlite3.OPEN_READWRITE,
+  sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
   (err) => {
     if (err) {
       console.error("DB connection error:", err.message);

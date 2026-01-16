@@ -9,13 +9,17 @@ console.log("PARTICIPANT CONTROLLER:", participantController);
 router.post(
   "/",
   authenticateAdmin,
-  participantController.createParticipant
+  participantController.addParticipant
 );
 
 router.get(
-  "/event/:eventId",
-  authenticateAdmin,
-  participantController.getParticipantsByEvent
+  "/",
+  participantController.getParticipants
+);
+
+router.get(
+  "/active",
+  participantController.getParticipantsForJudge
 );
 
 module.exports = router;

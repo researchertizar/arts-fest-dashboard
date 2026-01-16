@@ -4,7 +4,7 @@ const db = require("../database/db");
  * Admin: Add participant
  */
 exports.addParticipant = (req, res) => {
-  const { name, team_id, event_id, order_no } = req.body;
+  const { name, team_id, event_id, order_no, image_url, video_url } = req.body;
 
   if (!name || !team_id || !event_id || !order_no) {
     return res.status(400).json({ message: "All fields required" });
@@ -12,10 +12,10 @@ exports.addParticipant = (req, res) => {
 
   db.run(
     `
-    INSERT INTO participants (name, team_id, event_id, order_no)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO participants (name, team_id, event_id, order_no, image_url, video_url)
+    VALUES (?, ?, ?, ?, ?, ?)
     `,
-    [name, team_id, event_id, order_no],
+    [name, team_id, event_id, order_no, image_url, video_url],
     function (err) {
       if (err) {
         return res.status(500).json({ error: err.message });

@@ -7,7 +7,9 @@ exports.createEvent = (req, res) => {
     max_marks,
     judge_count,
     judge_names,
-    event_order
+    event_order,
+    image_url,
+    video_url
   } = req.body;
 
   if (
@@ -24,8 +26,8 @@ exports.createEvent = (req, res) => {
   db.run(
     `
     INSERT INTO events 
-    (name, category, max_marks, judge_count, judge_names, event_order)
-    VALUES (?, ?, ?, ?, ?, ?)
+    (name, category, max_marks, judge_count, judge_names, event_order, image_url, video_url)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `,
     [
       name,
@@ -33,7 +35,9 @@ exports.createEvent = (req, res) => {
       max_marks,
       judge_count,
       JSON.stringify(judge_names),
-      event_order
+      event_order,
+      image_url,
+      video_url
     ],
     function (err) {
       if (err) {
@@ -75,6 +79,10 @@ exports.activateEvent = (req, res) => {
         if (err) {
           return res.status(500).json({ error: err.message });
         }
+        
+        const io = req.app.get("io");
+        io.emit("eventActivated", { id: eventId });
+        
         res.json({ message: "Event activated" });
       }
     );

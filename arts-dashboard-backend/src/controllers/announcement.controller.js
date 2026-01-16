@@ -14,6 +14,10 @@ exports.create = (req, res) => {
       if (err) {
         return res.status(500).json({ error: err.message });
       }
+      
+      const io = req.app.get("io");
+      io.emit("announcementCreated", { message });
+      
       res.json({ message: "Announcement created" });
     }
   );

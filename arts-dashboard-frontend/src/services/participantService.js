@@ -7,11 +7,16 @@ export const getActiveEventParticipants = async () => {
   if (!activeEvent) return { event: null, participants: [] };
 
   const participantsRes = await api.get(
-    `/participants/event/${activeEvent.id}`
+    `/participants?eventId=${activeEvent.id}`
   );
 
   return {
     event: activeEvent,
     participants: participantsRes.data,
   };
+};
+
+export const addParticipant = async (participantData) => {
+  const res = await api.post("/participants", participantData);
+  return res.data;
 };
