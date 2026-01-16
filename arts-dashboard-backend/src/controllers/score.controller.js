@@ -34,6 +34,10 @@ exports.submitScore = (req, res) => {
           if (err) {
             return res.status(500).json({ error: err.message });
           }
+          
+          const io = req.app.get("io");
+          io.emit("scoreUpdated", { event_id, participant_id, judge_index, marks });
+          
           res.json({ message: "Score submitted" });
         }
       );

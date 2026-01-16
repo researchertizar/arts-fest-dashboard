@@ -12,7 +12,9 @@ db.serialize(() => {
       judge_names TEXT NOT NULL,
       event_order INTEGER NOT NULL,
       is_active INTEGER DEFAULT 0,
-      is_locked INTEGER DEFAULT 0
+      is_locked INTEGER DEFAULT 0,
+      image_url TEXT,
+      video_url TEXT
     )
   `);
 
@@ -22,7 +24,8 @@ db.serialize(() => {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       color TEXT NOT NULL,
-      code TEXT NOT NULL
+      code TEXT NOT NULL,
+      logo_url TEXT
     )
   `);
 
@@ -33,7 +36,9 @@ db.serialize(() => {
       name TEXT NOT NULL,
       team_id INTEGER NOT NULL,
       event_id INTEGER NOT NULL,
-      order_no INTEGER NOT NULL
+      order_no INTEGER NOT NULL,
+      image_url TEXT,
+      video_url TEXT
     )
   `);
 

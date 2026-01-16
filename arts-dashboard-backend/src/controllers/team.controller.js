@@ -1,7 +1,7 @@
 const db = require("../database/db");
 
 exports.createTeam = (req, res) => {
-  const { name, color, code } = req.body;
+  const { name, color, code, logo_url } = req.body;
 
   if (!name || !color || !code) {
     return res.status(400).json({ message: "All fields required" });
@@ -9,10 +9,10 @@ exports.createTeam = (req, res) => {
 
   db.run(
     `
-    INSERT INTO teams (name, color, code)
-    VALUES (?, ?, ?)
+    INSERT INTO teams (name, color, code, logo_url)
+    VALUES (?, ?, ?, ?)
     `,
-    [name, color, code],
+    [name, color, code, logo_url],
     function (err) {
       if (err) {
         return res.status(500).json({ error: err.message });
